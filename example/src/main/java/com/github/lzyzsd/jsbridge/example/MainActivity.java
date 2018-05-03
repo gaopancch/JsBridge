@@ -72,6 +72,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		webView.loadUrl("file:///android_asset/demo.html");
 
+		//H5调用native方法，执行handler
 		webView.registerHandler("submitFromWeb", new BridgeHandler() {
 
 			@Override
@@ -87,11 +88,11 @@ public class MainActivity extends Activity implements OnClickListener {
         location.address = "SDU";
         user.location = location;
         user.name = "大头鬼";
-
+        //native调用H5方法functionInJs
         webView.callHandler("functionInJs", new Gson().toJson(user), new CallBackFunction() {
             @Override
             public void onCallBack(String data) {
-
+				Log.i(TAG,"callHandler onCallBack = "+ data);
             }
         });
 
@@ -120,6 +121,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (button.equals(v)) {
+			//native调用H5方法functionInJs
             webView.callHandler("functionInJs", "data from Java", new CallBackFunction() {
 
 				@Override
